@@ -12,8 +12,8 @@ import com.clemble.casino.server.connection.GraphConnectionKey;
 import com.clemble.casino.server.connection.repository.NeoPlayerGraphRepository;
 import com.clemble.casino.server.connection.spring.ServerPlayerConnectionsSpringConfiguration;
 import com.clemble.casino.server.spring.common.PropertiesSpringConfiguration;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@org.junit.Ignore
+@Ignore
 // TODO restore
 @WebAppConfiguration
 @ContextConfiguration(classes = {ServerPlayerConnectionsSpringConfiguration.GraphPlayerConnectionsSpringConfigurations.class, PropertiesSpringConfiguration.class})
