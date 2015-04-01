@@ -3,9 +3,7 @@ machine:
     version: oraclejdk8
   services:
     - docker
-    - mongodb
-    - redis
-    - rabbitmq
+    - rabbitmq-server
     - neo4j
 
 
