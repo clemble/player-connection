@@ -1,0 +1,11 @@
+id: connection
+kind: Service
+apiVersion: v1beta1
+selector:
+  name: connection
+containerPort: 10010
+protocol: TCP
+port: 80
+publicIPs:
+  - "146.148.12.102"
+createExternalLoadBalancer: true
