@@ -6,6 +6,8 @@ import com.clemble.casino.server.event.player.SystemPlayerDiscoveredConnectionEv
 import com.clemble.casino.server.player.notification.SystemEventListener;
 import com.clemble.casino.server.player.notification.SystemNotificationService;
 import com.google.common.collect.Sets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
@@ -15,6 +17,8 @@ import static com.clemble.casino.utils.Preconditions.checkNotNull;
  * Created by mavarazy on 7/4/14.
  */
 public class PlayerGraphPopulatorListener implements SystemEventListener<SystemPlayerConnectionsFetchedEvent> {
+
+    final private Logger LOG = LoggerFactory.getLogger(PlayerGraphPopulatorListener.class);
 
     final private PlayerGraphService connectionService;
     final private SystemNotificationService notificationService;
@@ -29,18 +33,18 @@ public class PlayerGraphPopulatorListener implements SystemEventListener<SystemP
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void onEvent(SystemPlayerConnectionsFetchedEvent event) {
-        // Step 1. Finding appropriate PlayerConnections
-        connectionService.addOwned(event.getPlayer(), event.getConnection());
-        // Step 3. Adding connected connections
+        boolean added = connectionService.addOwned(event.getPlayer(), event.getConnection());
+        LOG.debug("1. Added new owned connection {}", added);
         Set<String> connected =  connectionService.getConnections(event.getPlayer());
-        // Step 4. Checking for new connections
+        LOG.debug("2. Existing connections {}", connected);
         Set<String> discoveredConnections = Sets.newHashSet(connectionService.getOwners(event.getConnections()));
-        // Step 4.1. Removing all already connected
+        LOG.debug("3. All registered users {}", discoveredConnections);
         discoveredConnections.removeAll(connected);
-        // Step 5. Saving new connections
+        LOG.debug("4.1. Removing all already connected {}", discoveredConnections);
         for(String discovered : discoveredConnections) {
+            LOG.debug("5.1 Connecting with {}", discovered);
             connectionService.connect(event.getPlayer(), discovered);
-            // Step 6. For all discovered connections send notification
+            LOG.debug("5.2 Sending discover notification {}", discovered);
             notificationService.send(new SystemPlayerDiscoveredConnectionEvent(event.getPlayer(), discovered));
         }
     }

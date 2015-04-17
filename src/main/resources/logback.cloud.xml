@@ -19,7 +19,7 @@
 
     <appender name="SYSLOG-UDP" class="com.papertrailapp.logback.Syslog4jAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%-5level %logger{35}: %m%n%xEx</pattern>
+            <pattern>P:%X{player} %-5level %logger{35}: %m%n%xEx</pattern>
         </layout>
 
         <syslogConfig class="org.productivity.java.syslog4j.impl.net.udp.UDPNetSyslogConfig">
@@ -31,6 +31,8 @@
            <ident>connection</ident>
         </syslogConfig>
     </appender>
+
+    <logger name="org.springframework.amqp" level="INFO" />
 
     <root level="DEBUG">
         <appender-ref ref="FILE" />
