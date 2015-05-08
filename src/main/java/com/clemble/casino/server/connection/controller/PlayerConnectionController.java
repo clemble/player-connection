@@ -11,11 +11,11 @@ import com.clemble.casino.WebMapping;
 import static com.clemble.casino.player.PlayerConnectionWebMapping.*;
 
 @RestController
-public class PlayerConnectionServiceController implements PlayerConnectionService {
+public class PlayerConnectionController implements PlayerConnectionService {
 
     final private PlayerGraphService connectionService;
 
-    public PlayerConnectionServiceController(PlayerGraphService connectionService) {
+    public PlayerConnectionController(PlayerGraphService connectionService) {
         this.connectionService = connectionService;
     }
 

@@ -23,16 +23,16 @@ import java.util.stream.Collectors;
  * Created by mavarazy on 11/11/14.
  */
 @RestController
-public class PlayerFriendInvitationServiceController implements PlayerFriendInvitationService {
+public class PlayerFriendInvitationController implements PlayerFriendInvitationService {
 
     final private ServerNotificationService notificationService;
     final private PlayerFriendInvitationRepository invitationRepository;
     final private PlayerGraphService connectionService;
 
-    public PlayerFriendInvitationServiceController(
-        PlayerFriendInvitationRepository invitationRepository,
-        ServerNotificationService notificationService,
-        PlayerGraphService connectionService){
+    public PlayerFriendInvitationController(
+            PlayerFriendInvitationRepository invitationRepository,
+            ServerNotificationService notificationService,
+            PlayerGraphService connectionService){
         this.invitationRepository = invitationRepository;
         this.notificationService = notificationService;
         this.connectionService = connectionService;

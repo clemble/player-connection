@@ -1,7 +1,7 @@
 package com.clemble.casino.server.connection.spring;
 
 import com.clemble.casino.player.service.PlayerConnectionService;
-import com.clemble.casino.server.connection.controller.PlayerFriendInvitationServiceController;
+import com.clemble.casino.server.connection.controller.PlayerFriendInvitationController;
 import com.clemble.casino.server.connection.listener.PlayerDiscoveryNotificationEventListener;
 import com.clemble.casino.server.connection.listener.PlayerGraphCreationListener;
 import com.clemble.casino.server.connection.listener.PlayerGraphPopulatorListener;
@@ -11,7 +11,7 @@ import com.clemble.casino.server.player.notification.ServerNotificationService;
 import com.clemble.casino.server.player.notification.SystemNotificationService;
 import com.clemble.casino.server.player.notification.SystemNotificationServiceListener;
 import com.clemble.casino.server.spring.common.CommonSpringConfiguration;
-import com.clemble.casino.server.connection.controller.PlayerConnectionServiceController;
+import com.clemble.casino.server.connection.controller.PlayerConnectionController;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
@@ -57,21 +57,21 @@ public class PlayerConnectionSpringConfiguration {
     }
 
     @Bean
-    public PlayerConnectionServiceController playerConnectionController(PlayerGraphService connectionService) {
-        return new PlayerConnectionServiceController(connectionService);
+    public PlayerConnectionController playerConnectionController(PlayerGraphService connectionService) {
+        return new PlayerConnectionController(connectionService);
     }
 
     @Bean
-    public PlayerFriendInvitationServiceController playerFriendInvitationServiceController(
+    public PlayerFriendInvitationController playerFriendInvitationServiceController(
         PlayerGraphService graphService,
         @Qualifier("playerNotificationService") ServerNotificationService notificationService,
         PlayerFriendInvitationRepository invitationRepository) {
-        return new PlayerFriendInvitationServiceController(invitationRepository, notificationService, graphService);
+        return new PlayerFriendInvitationController(invitationRepository, notificationService, graphService);
     }
 
        @Bean
     public SimpleMessageListenerContainer connectionServiceListener(
-        PlayerConnectionServiceController playerConnectionController,
+        PlayerConnectionController playerConnectionController,
         @Value("${clemble.service.notification.system.user}") String user,
         @Value("${clemble.service.notification.system.password}") String password,
         @Value("${SYSTEM_NOTIFICATION_SERVICE_HOST}") String host) throws Exception {
