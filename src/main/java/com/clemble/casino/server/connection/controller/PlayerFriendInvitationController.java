@@ -6,6 +6,7 @@ import com.clemble.casino.player.Invitation;
 import com.clemble.casino.player.event.PlayerConnectionAddEvent;
 import com.clemble.casino.player.event.PlayerInvitedConnectionEvent;
 import com.clemble.casino.player.service.PlayerFriendInvitationService;
+import com.clemble.casino.server.ExternalController;
 import com.clemble.casino.server.connection.ServerFriendInvitation;
 import com.clemble.casino.server.connection.repository.PlayerFriendInvitationRepository;
 import com.clemble.casino.server.connection.service.PlayerGraphService;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  * Created by mavarazy on 11/11/14.
  */
 @RestController
-public class PlayerFriendInvitationController implements PlayerFriendInvitationService {
+public class PlayerFriendInvitationController implements PlayerFriendInvitationService, ExternalController {
 
     final private ServerNotificationService notificationService;
     final private PlayerFriendInvitationRepository invitationRepository;
