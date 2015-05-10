@@ -3,7 +3,7 @@ package com.clemble.casino.server.connection.controller;
 import java.util.Set;
 
 import com.clemble.casino.player.service.PlayerConnectionService;
-import com.clemble.casino.server.ExternalController;
+import com.clemble.casino.server.ServerController;
 import com.clemble.casino.server.connection.service.PlayerGraphService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import com.clemble.casino.WebMapping;
 import static com.clemble.casino.player.PlayerConnectionWebMapping.*;
 
 @RestController
-public class PlayerConnectionController implements PlayerConnectionService, ExternalController {
+public class PlayerConnectionController implements PlayerConnectionService, ServerController {
 
     final private PlayerGraphService connectionService;
 
