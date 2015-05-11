@@ -9,7 +9,6 @@ import com.clemble.casino.server.connection.repository.PlayerFriendInvitationRep
 import com.clemble.casino.server.connection.service.PlayerGraphService;
 import com.clemble.casino.server.player.notification.ServerNotificationService;
 import com.clemble.casino.server.player.notification.SystemNotificationService;
-import com.clemble.casino.server.player.notification.SystemNotificationServiceListener;
 import com.clemble.casino.server.spring.common.CommonSpringConfiguration;
 import com.clemble.casino.server.connection.controller.PlayerConnectionController;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -34,25 +33,25 @@ import static com.clemble.casino.server.spring.common.ConnectionClientSpringConf
 public class PlayerConnectionSpringConfiguration {
 
     @Bean
-    public PlayerGraphCreationListener playerConnectionNetworkCreationListener(PlayerGraphService playerRepository, SystemNotificationServiceListener notificationServiceListener) {
+    public PlayerGraphCreationListener playerConnectionNetworkCreationListener(
+            PlayerGraphService playerRepository
+    ) {
         PlayerGraphCreationListener networkCreationService = new PlayerGraphCreationListener(playerRepository);
-        notificationServiceListener.subscribe(networkCreationService);
         return networkCreationService;
     }
 
     @Bean
-    public PlayerGraphPopulatorListener socialNetworkConnectionCreatorListener(PlayerGraphService playerRepository, SystemNotificationService notificationService, SystemNotificationServiceListener notificationServiceListener) {
+    public PlayerGraphPopulatorListener socialNetworkConnectionCreatorListener(
+            PlayerGraphService playerRepository,
+            SystemNotificationService notificationService) {
         PlayerGraphPopulatorListener connectionCreatorListener = new PlayerGraphPopulatorListener(playerRepository, notificationService);
-        notificationServiceListener.subscribe(connectionCreatorListener);
         return connectionCreatorListener;
     }
 
     @Bean
     public PlayerDiscoveryNotificationEventListener playerDiscoveryNotifierEventListener(
-        @Qualifier("playerNotificationService") ServerNotificationService notificationService,
-        SystemNotificationServiceListener notificationServiceListener) {
+        @Qualifier("playerNotificationService") ServerNotificationService notificationService) {
         PlayerDiscoveryNotificationEventListener discoveryNotifierEventListener = new PlayerDiscoveryNotificationEventListener(notificationService);
-        notificationServiceListener.subscribe(discoveryNotifierEventListener);
         return discoveryNotifierEventListener;
     }
 
