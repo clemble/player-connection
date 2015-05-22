@@ -88,7 +88,7 @@ public class PlayerFriendInvitationController implements PlayerFriendInvitationS
         // Key is actually player - me, since player is the sender
         ServerFriendInvitation invitation = invitationRepository.findOne(ServerFriendInvitation.toKey(player, me));
         if (invitation == null)
-            throw ClembleException.fromError(ClembleErrorCode.PlayerNoInvitation);
+            throw ClembleException.withServerError(ClembleErrorCode.PlayerNoInvitation);
         // Step 2. Removing invitation
         invitationRepository.delete(invitation.getInvitation());
         // Step 3. If it's an accept add connection
