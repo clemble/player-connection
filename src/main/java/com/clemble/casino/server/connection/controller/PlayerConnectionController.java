@@ -27,10 +27,21 @@ public class PlayerConnectionController implements PlayerConnectionService, Serv
         throw new IllegalAccessError();
     }
 
+    @Override
+    public Integer myConnectionsCount() {
+        throw new IllegalAccessError();
+    }
+
     @RequestMapping(value = MY_CONNECTIONS, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
     @ResponseStatus(value = HttpStatus.OK)
     public Set<PlayerConnection> myConnections(@CookieValue("player") String player) {
         return connectionService.getConnections(player);
+    }
+
+    @RequestMapping(value = MY_CONNECTIONS_COUNT, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Integer myConnectionsCount(@CookieValue("player") String player) {
+        return connectionService.getConnectionsCount(player);
     }
 
     @Override
@@ -38,6 +49,13 @@ public class PlayerConnectionController implements PlayerConnectionService, Serv
     @ResponseStatus(value = HttpStatus.OK)
     public Set<PlayerConnection> getConnections(@PathVariable("player") String player) {
         return connectionService.getConnections(player);
+    }
+
+    @Override
+    @RequestMapping(value = PLAYER_CONNECTIONS_COUNT, method = RequestMethod.GET, produces = WebMapping.PRODUCES)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Integer getConnectionsCount(@PathVariable("player") String player) {
+        return connectionService.getConnectionsCount(player);
     }
 
 }

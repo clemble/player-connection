@@ -4,6 +4,8 @@ import com.clemble.casino.player.PlayerConnectionInvitation;
 import com.clemble.casino.server.connection.repository.PlayerConnectionRepository;
 import com.clemble.casino.server.connection.repository.PlayerConnectionInvitationRepository;
 import com.clemble.casino.server.connection.service.ServerPlayerConnectionService;
+import com.clemble.casino.server.event.notification.SystemNotificationAddEvent;
+import com.clemble.casino.server.player.notification.SystemNotificationService;
 import com.clemble.casino.server.spring.common.MongoSpringConfiguration;
 import com.clemble.casino.server.spring.common.SpringConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,10 @@ public class ServerPlayerConnectionsSpringConfiguration {
         }
 
         @Bean
-        public ServerPlayerConnectionService playerGraphService(PlayerConnectionRepository playerConnectionsRepository) {
-            return new ServerPlayerConnectionService(playerConnectionsRepository);
+        public ServerPlayerConnectionService playerGraphService(
+            SystemNotificationService notificationService,
+            PlayerConnectionRepository playerConnectionsRepository) {
+            return new ServerPlayerConnectionService(playerConnectionsRepository, notificationService);
         }
 
         @PostConstruct

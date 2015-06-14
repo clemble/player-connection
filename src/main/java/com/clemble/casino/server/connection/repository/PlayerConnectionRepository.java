@@ -2,6 +2,7 @@ package com.clemble.casino.server.connection.repository;
 
 import com.clemble.casino.server.connection.ServerPlayerConnection;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,6 @@ public interface PlayerConnectionRepository extends MongoRepository<ServerPlayer
 
     List<ServerPlayerConnection> findByPlayerAndConnectionKey(String player, ConnectionKey key);
 
+    @Query(value = "{'player': ?0, 'connectionKey.providerId': ?1}", count = true)
+    Integer countByProvider(String player, String providerId);
 }
