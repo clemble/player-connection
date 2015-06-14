@@ -48,7 +48,7 @@ public class ServerPlayerConnectionService implements PlayerConnectionService {
     }
 
     public boolean create(PlayerProfile profile) {
-        ServerPlayerConnection newConnection = new ServerPlayerConnection(null, profile.getPlayer(), new ConnectionKey(PROVIDER, profile.getPlayer()), profile.getFirstName());
+        ServerPlayerConnection newConnection = new ServerPlayerConnection(null, profile.getPlayer(), new ConnectionKey(PROVIDER, profile.getPlayer()), profile.getFirstName() + " " + profile.getLastName());
         return graphRepository.save(newConnection) != null;
     }
 
